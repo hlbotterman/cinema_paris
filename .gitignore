@@ -1,0 +1,22 @@
+# cache files
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# local or temporary confgiration files
+*.env
+*.DS_Store
+
+# virtual environment files
+.venv/
+env/
+venv/
+
+# unit test / coverage reports
+.coverage
+coverage.xml
+
+# vs-code
+.vscode/
