@@ -2,9 +2,11 @@
 
 import asyncio
 from datetime import datetime
+from typing import List
 
 import pytest
 
+from app.models.models import Showtime
 from app.services.cinema_service import (
     get_all_showtimes,
     translate_day,
@@ -30,10 +32,8 @@ async def test_retrieves_showtimes(mocker) -> None:
     mock_showtime.start_at.strftime.return_value = "14:00"
     mock_theater.get_showtimes.return_value = [mock_showtime]
 
-    future = asyncio.Future()
-    future.set_result(
-        [mock_showtime]
-    )  # This is the async equivalent of returning a list synchronously
+    future: asyncio.Future[List[Showtime]] = asyncio.Future()
+    future.set_result([mock_showtime])
     mock_theater.get_showtimes.return_value = future
 
     mocker.patch("app.services.cinema_service.theaters", [mock_theater])

@@ -31,7 +31,7 @@ class TestMovie:
             "wantToSee": 1200,
             "id": 1,
         }
-        movie = Movie(**valid_data)
+        movie = Movie.model_validate(valid_data)
         assert movie.title == "Inception"
         assert movie.runtime == 148
         assert movie.genres == ["Sci-Fi", "Action"]
@@ -51,14 +51,14 @@ class TestMovie:
         }
 
         with pytest.raises(ValueError):
-            Movie(**invalid_data)
+            Movie.model_validate(invalid_data)
 
 
 class TestShowtime:
     """Tests for the Showtime model."""
 
-    def test_create_showtime_with_valid_objects(self) -> None:
-        """Test creating a Showtime with valid objects."""
+    def test_showtime_models_with_valid_objects(self) -> None:
+        """Test the Showtime model with valid objects."""
         mock_movie = Movie(
             title="Test Movie",
             runtime=120,
@@ -70,58 +70,21 @@ class TestShowtime:
             wantToSee=500,
             id=1,
         )
-
         mock_theater = Theater(
             name="Test Theater", internal_id="T001", location="Test Location"
         )
-        start_time = datetime.now()
+        mock_start_time = datetime.now()
 
         showtime = Showtime(
-            movie=mock_movie, theater=mock_theater, start_at=start_time
+            movie=mock_movie, theater=mock_theater, start_at=mock_start_time
         )
 
         assert showtime.movie == mock_movie
         assert showtime.theater == mock_theater
-        assert showtime.start_at == start_time
+        assert showtime.start_at == mock_start_time
 
-    def test_create_showtime_with_invalid_movie(self) -> None:
-        """Test creating a Showtime with an invalid movie."""
-        mock_theater = Theater(
-            name="Test Theater", internal_id="T001", location="Test Location"
-        )
-        start_time = datetime.now()
-
-        with pytest.raises(ValidationError):
-            Showtime(
-                movie={"title": "Test Movie"},
-                theater=mock_theater,
-                start_at=start_time,
-            )
-
-    def test_create_showtime_with_invalid_theater(self) -> None:
-        """Test creating a Showtime with an invalid theater."""
-        mock_movie = Movie(
-            title="Test Movie",
-            runtime=120,
-            genres=["Action", "Thriller"],
-            cast=["Actor 1", "Actor 2"],
-            director="Test Director",
-            synopsis="Test synopsis",
-            affiche="http://example.com/image.jpg",
-            wantToSee=500,
-            id=1,
-        )
-        start_time = datetime.now()
-
-        with pytest.raises(ValidationError):
-            Theater(
-                movie=mock_movie,
-                theater="Invalid Theater",
-                start_at=start_time,
-            )
-
-    def test_create_showtime_with_missing_start_time(self) -> None:
-        """Test creating a Showtime with an invalid start time."""
+    def test_showtime_models_with_invvalid_objects(self) -> None:
+        """Test the Showtime model with invvalid objects."""
         mock_movie = Movie(
             title="Test Movie",
             runtime=120,
@@ -136,12 +99,19 @@ class TestShowtime:
         mock_theater = Theater(
             name="Test Theater", internal_id="T001", location="Test Location"
         )
+        mock_start_at = datetime.now()
 
         with pytest.raises(ValidationError):
-            Showtime(
-                movie=mock_movie,
-                theater=mock_theater,
-                start_at=None,  # None is not a valid datetime
+            Showtime.model_validate(
+                {"movie": mock_movie, "theater": mock_theater}
+            )
+        with pytest.raises(ValidationError):
+            Showtime.model_validate(
+                {"movie": mock_movie, "start_at": mock_start_at}
+            )
+        with pytest.raises(ValidationError):
+            Showtime.model_validate(
+                {"theater": mock_theater, "start_at": mock_start_at}
             )
 
 
@@ -157,10 +127,18 @@ class TestTheater:
         assert theater.internal_id == "T001"
         assert theater.location == "Test Location"
 
-    def test_create_theater_with_invalid_name(self) -> None:
-        """Test creating a Theater with an invalid name."""
+    def test_create_theater_with_invalid_data(self) -> None:
+        """Test creating a Theater with an invalid data."""
         with pytest.raises(ValidationError):
-            Theater(name=None, internal_id="T001", location="Test Location")
+            Theater.model_validate({"name": "name", "location": "location"})
+        with pytest.raises(ValidationError):
+            Theater.model_validate(
+                {"internal_id": "internal_id", "location": "location"}
+            )
+        with pytest.raises(ValidationError):
+            Theater.model_validate(
+                {"name": "name", "internal_id": "internal_id"}
+            )
 
     @pytest.mark.asyncio
     async def test_get_showtimes(self, mocker: MockerFixture) -> None:

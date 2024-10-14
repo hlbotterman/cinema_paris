@@ -136,7 +136,7 @@ class Theater(BaseModel):
             A Movie object with the structured information about the movie.
 
         """
-        runtime = self._parse_runtime(movie_info.get("runtime"))
+        runtime = self._parse_runtime(movie_info.get("runtime", None))
         genres = [genre["translate"] for genre in movie_info.get("genres", [])]
         cast = self.parse_cast(movie_info.get("cast", {}).get("edges", []))
         director = self.parse_director(movie_info.get("credits", []))
@@ -144,7 +144,7 @@ class Theater(BaseModel):
         affiche = affiche_info.get("url", "") if affiche_info else ""
         want_to_see = int(movie_info.get("wantToSee", 0))
 
-        movie_id = self.decode_movie_id(movie_info.get("id"))
+        movie_id = self.decode_movie_id(movie_info["id"])
 
         return Movie(
             title=movie_info["title"],
@@ -182,7 +182,7 @@ class Theater(BaseModel):
                 base64.b64decode(encoded_id).decode("utf-8").split(":")[-1]
             )
             return int(decoded_id)
-        except (ValueError, TypeError, base64.binascii.Error):
+        except (ValueError, TypeError):
             raise Exception(f"Invalid movie ID format: {encoded_id}")
 
     def parse_cast(self, edges: List[dict]) -> List[str]:
@@ -235,12 +235,12 @@ class Theater(BaseModel):
         return "Unknown"
 
     @staticmethod
-    def _parse_runtime(runtime_str: str) -> int:
+    def _parse_runtime(runtime_str: str | None) -> int:
         """Parse runtime string and return minutes.
 
         Parameters
         ----------
-        runtime_str : str
+        runtime_str : str | None
             runtime string in the format "Xh Ymin"
 
         Returns
@@ -249,6 +249,8 @@ class Theater(BaseModel):
             runtime in minutes
 
         """
+        if runtime_str is None:
+            return 0
         hours, minutes = 0, 0
         if "h" in runtime_str:
             hours = int(runtime_str.split("h")[0])

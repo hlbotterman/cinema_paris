@@ -1,6 +1,7 @@
 """Services for the cinema app."""
 
 from datetime import datetime
+from typing import Any, Dict
 
 from app.core.cinema_config import CINEMAS
 from app.models.models import Theater
@@ -11,7 +12,7 @@ cinemas = {
 }
 
 theaters = [
-    Theater(name=name, internal_id=id, location=None)
+    Theater(name=str(name), internal_id=str(id), location=None)
     for id, name in cinemas.items()
 ]
 
@@ -32,9 +33,9 @@ async def get_all_showtimes(date: datetime):
     """
     showtimes = []
     for theater in theaters:
-        showtimes.extend(await theater.get_showtimes(date.date()))
+        showtimes.extend(await theater.get_showtimes(date))
 
-    data = {}
+    data: Dict[str, Dict[str, Any]] = {}
     for showtime in showtimes:
         movie = showtime.movie
         theater = showtime.theater

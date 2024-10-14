@@ -29,7 +29,6 @@ The project is motivated by the fact that there is currently no single page wher
    poetry install
    poetry shell
 
-
 3. Start the application
     ```bash
     uvicorn main:app --reload
