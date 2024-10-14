@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <title>Cinémas Paris</title>
+    {% block head %} {% endblock %}
+</head>
+
+<header id="headerTop">
+    <div class="divHeader">
+        <h1 class="textLogo_header">Cinémas indépendants parisiens</h1>
+    </div>
+</header>
+<body>
+    {% block body %} {% endblock %}
+</body> 
+
+<footer>
+    <div class="container_footer">
+        <p>Enjoy</p>
+    </div>
+</footer>
+</html>

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+<a href="#headerTop">
+    <div class="goTop">
+        <p>🍿</p>
+    </div>
+</a>
+
+<img src="../static/images/movie-background.jpg" class="background_svg">
+
+
+<div id="map"></div>
+
+<div class="planning">
+    <div class="container_titrePlanning">
+        <div class="contenu_edt">
+            <h2 class="txt_edt">Séances</h2>
+            <div class="calendrier">
+            {% for date in dates %}
+                {% if date.choisi %}
+                <div class="date-selectionne">
+                    <p class="jour">{{date.jour}}</p>
+                    <p class="chiffre">{{date.chiffre}}</p>
+                    <p class="mois">{{date.mois}}</p>
+                </div>
+                {% else %}
+                <a href="/?delta={{ date.index }}">
+                    <div class="date">
+                        <p class="jour">{{date.jour}}</p>
+                        <p class="chiffre">{{date.chiffre}}</p>
+                        <p class="mois">{{date.mois}}</p>
+                    </div>
+                </a>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+        <div class="line"></div>
+    </div>
+    {% for film in films %}
+    <div class="container_infoFilm">
+        <img src="{{ film.affiche }}" class="affiche" />
+        <div class="infoFilm">
+            <div class="blur-background"></div>
+            <div>
+                <h3 class="titreFilm"><a href="{{ film.url }}">{{film.title}}</a></h3>
+                <div class="info-content">
+                    <p class="realisateur">Réalisateur : {{film.director}}</p>
+                    <p class="casting">Casting : {{ film.casting }}</p>
+                    <p class="genre">Genre : {{ film.genres }}</p>
+                    <p class="duree">Durée : {{film.duree}} min</p>
+                </div>
+                <div class="synopsis_container">
+                    <p class="synopsis">
+                        {{film.synopsis}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 10px;"></div>
+    {% for cinename, seances in film.seances.items() %}
+    <div class="seance_container">
+        <div class="cinema">
+            <p>{{cinename}}</p>
+        </div>
+        <div class="horaires_container">
+            {% for seance in seances %}
+            <div class="horaire">
+                <p>{{seance}}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="responsive-petite-div"></div>
+    {% endfor %}
+    <div class="responsive-div"></div>
+    {% endfor %}
+
+</div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const map = L.map('map').setView([48.8566, 2.3522], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var cinemas = {{ cinemas | tojson }};
+        console.log("Cinemas:", {{ cinemas | tojson }});
+
+        cinemas.forEach(function (cinema) {
+            L.marker(cinema.coordinates)
+                .addTo(map)
+                .bindPopup(cinema.description);
+        });
+    });
+</script>
+
+
+{% endblock %}

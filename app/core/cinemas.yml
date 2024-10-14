@@ -1,0 +1,88 @@
+cinemas:
+  W7588:
+    name: "Jeu de Paume"
+    coordinates: [48.865234375, 2.3224592]
+  C0013:
+    name: "Luminor Hotel de Ville"
+    coordinates: [48.858676, 2.353602]
+  C0072:
+    name: "Grand Action"
+    coordinates: [48.848838, 2.3477220]
+  C0016:
+    name: "Studio Galande"
+    coordinates: [48.851589, 2.3470656]
+  C0076:
+    name: "Cinéma du Panthéon"
+    coordinates: [48.847488, 2.342385]
+  C0074:
+    name: "Reflet Médicis"
+    coordinates: [48.849430, 2.3427040]
+  C0083:
+    name: "Studio des Usrulines"
+    coordinates: [48.842670, 2.3421344]
+  C0071:
+    name: "Ecoles Cinéma Club"
+    coordinates: [48.848838, 2.3477220]
+  W7504:
+    name: "Épée de bois"
+    coordinates: [48.841300, 2.349555]
+  C0093:
+    name: "Lucernaire"
+    coordinates: [48.8442592,2.3304599]
+  C0041:
+    name: "Nouvel Odéon"
+    coordinates: [48.850914, 2.3411295]
+  C0015:
+    name: "Christine Cinéma Club"
+    coordinates: [48.850914, 2.3411295]
+  C0100:
+    name: "Saint-André des Arts"
+    coordinates: [48.853420, 2.3405964]
+  C0095:
+    name: "Les 3 Luxembourg"
+    coordinates: [48.853420, 2.3405964]
+  C0108:
+    name: "Elysées Lincoln"
+    coordinates: [48.853420, 2.3405964]
+  C0009:
+    name: "Le Balzac"
+    coordinates: [48.874431, 2.3012943]
+  C0012:
+    name: "Les Cinq Caumartin"
+    coordinates: [48.876857, 2.3331170]
+  C0089:
+    name: "Max Linder Panorama"
+    coordinates: [48.871070, 2.3455817]
+  C0023:
+    name: "Le Brady"
+    coordinates: [48.873165, 2.3564405]
+  W7510:
+    name: "Louxor"
+    coordinates: [48.870500, 2.3610037]
+  C0134:
+    name: "L'Archipel"
+    coordinates: [48.87047, 2.3546823]
+  C0139:
+    name: "Majestic Bastille"
+    coordinates: [48.8539688, 2.3699642]
+  C0147:
+    name: "Escurial"
+    coordinates: [48.8367718, 2.3496494]
+  C0025:
+    name: "7 Parnassiens"
+    coordinates: [48.8424152, 2.3276286]
+  C0005:
+    name: "L'Entrepôt"
+    coordinates: [48.8339029, 2.3166696]
+  C0120:
+    name: "Majestic Passy"
+    coordinates: [48.8582216, 2.2821508]
+  C0004:
+    name: "Cinéma des Cinéastes"
+    coordinates: [48.8843074, 2.3269007]
+  W7517:
+    name: "Club de l'Etoile"
+    coordinates: [48.8760957, 2.29535]
+  C0061:
+    name: "Studio 28"
+    coordinates: [48.8861381, 2.3353884]
