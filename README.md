@@ -21,8 +21,8 @@ The project is motivated by the fact that there is currently no single page wher
 ### Setup Instructions
 1. Clone the repository
    ```bash
-   git clone https://github.com/your-username/cinema-paris.git
-   cd cinema-paris
+   git clone https://github.com/hlbotterman/cinema_paris.git
+   cd cinema_paris
 
 2. Install dependencies using Poetry
    ```bash
